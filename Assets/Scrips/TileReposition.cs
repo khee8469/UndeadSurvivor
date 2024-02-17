@@ -63,7 +63,6 @@ public class TileReposition : MonoBehaviour
                     {
                         transform.Translate(Vector2.up * (dirY < 0 ? -1 : 1) * 50);
                     }
-                    
                 }
                 break;
             case "Enemy":

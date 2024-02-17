@@ -10,6 +10,14 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
+    float timer;
+    Player player;
+
+    private void Awake()
+    {
+        player = GetComponentInParent<Player>();
+    }
+
     private void Start()
     {
         Init();
@@ -23,16 +31,22 @@ public class Weapon : MonoBehaviour
                 //weapon0 오브젝트 회전
                 transform.Rotate(Vector3.forward * speed * Time.deltaTime); 
                 break;
-            default:
 
+            default:
+                timer += Time.deltaTime;
+                if(timer > speed) // 발사
+                {
+                    timer = 0f; //쿨 초기화
+                    Fire();
+                }
                 break;
         }
 
-        /*test용
+        //test용
         if (Input.GetButtonDown("Jump"))
         {
-            LevelUp(20, 5);
-        }*/
+            LevelUp(20, 1);
+        }
     }
     public void LevelUp(float damage, int count)
     {
@@ -54,7 +68,7 @@ public class Weapon : MonoBehaviour
                 Batch();
                 break;
             default:
-
+                speed = 0.3f;
                 break;
         }
     }
@@ -82,7 +96,22 @@ public class Weapon : MonoBehaviour
             Vector3 rotVec = Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
-            bullet.GetComponent<Bullet>().Init(damage, -1); //-1 은 무한으로 관통
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); //-1 은 무한으로 관통
         }
+    }
+
+    void Fire()
+    {
+        if (!player.scanner.nearestTarget)  // nearestTarget가 null일때
+            return;
+
+        Vector3 targetPos = player.scanner.nearestTarget.position; // 몬스터 위치
+        Vector3 dir = targetPos - transform.position;
+        dir = dir.normalized; // 방향
+
+        Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+        bullet.position = transform.position;
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+        bullet.GetComponent<Bullet>().Init(damage, count, dir);
     }
 }
