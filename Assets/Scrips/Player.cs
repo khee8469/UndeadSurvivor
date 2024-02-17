@@ -50,4 +50,9 @@ public class Player : MonoBehaviour
             spriter.flipX = inputVec.x < 0;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        rigid.velocity = Vector2.zero;
+    }
 }
