@@ -5,7 +5,7 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     //프리펩 보관 변수
-    public GameObject[] prefabs;  // 몬스터들 프리팹
+    public GameObject[] prefabs;  // 몬스터, 아이템 프리펩
 
     public List<GameObject>[] pools;
 
@@ -19,13 +19,15 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    // 비활성화 오브젝트 재활용
     public GameObject Get(int index)
     {
         GameObject select = null;
 
-        foreach(GameObject item in pools[index])  // 죽은 몬스터 재활성용
+        foreach(GameObject item in pools[index])  
         {
-            if (!item.activeSelf) // 비활성화 여부 확인
+            // 오브젝트가 비활성화 상태라면 다시 활성화하여 사용
+            if (!item.activeSelf) 
             {
                 select = item;  // 사용
                 select.SetActive(true);

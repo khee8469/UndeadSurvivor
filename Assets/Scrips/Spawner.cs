@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public Transform[] spawnPoint;
-    public SpawnDate[] spawnData;
+    public Transform[] spawnPoint;  // 스폰위치
+    public SpawnDate[] spawnData;  //스폰몬스터 데이터
 
-    int level;
-    float timer;
+    int level; //스테이지레벨
+    float timer; //리스폰용
 
     private void Awake()
     {
-        spawnPoint = GetComponentsInChildren<Transform>();  // 오브젝트 자식을 전부 컴포넌트에 추가
+        // 오브젝트 자식을 전부 컴포넌트에 추가
+        spawnPoint = GetComponentsInChildren<Transform>();  
     }
     void Update()
     {
-        timer += Time.deltaTime;
-                  //둘중 최소값 출력
+        //둘중 최소값 출력 spawnData.Length -1 보다 레벨은 높아지지 않는다.
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f),spawnData.Length -1);
 
 
-        // 소수점아래 버리기
+        timer += Time.deltaTime;
         if (timer > spawnData[level].spawnTime)
         {
             timer = 0;

@@ -7,12 +7,14 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rigid;
-    [SerializeField] float speed;
-    public Vector2 inputVec;
-    public Scanner scanner;
+    Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator animator;
+    public Scanner scanner;
+
+    [SerializeField] float speed;
+    public Vector2 inputVec;
+
 
     private void Awake()
     {
@@ -26,12 +28,11 @@ public class Player : MonoBehaviour
     private void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
-
     }
 
     private void Move()
     {
-        transform.Translate(inputVec.normalized * speed * Time.fixedDeltaTime);
+        transform.Translate(inputVec * speed * Time.fixedDeltaTime);
     }
 
     void Update()
@@ -45,14 +46,17 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
+        //애니메이터 파라미터 Speed의 float값 입력
         animator.SetFloat("Speed", inputVec.magnitude);
 
-        if (inputVec.x != 0)
+        if (inputVec.x != 0) // 좌우 방향키를 누르고있다면
         {
+            //왼쪽입력 = true 오른쪽입력 = false
             spriter.flipX = inputVec.x < 0;
         }
     }
 
+    //충돌후 밀림현상 종료
     private void OnTriggerExit2D(Collider2D collision)
     {
         rigid.velocity = Vector2.zero;
