@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e801d905046124b8b753e5acf59e55, type: 3}
   m_Name: Item2
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemId: 0
-  itemName: "\uC0BD"
-  itemDesc: 
-  itemIcon: {fileID: -181907988, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
-  baseDamage: 4.5
-  baseCount: 3
+  itemType: 2
+  itemId: 2
+  itemName: "\uAE00\uB7EC\uBE0C"
+  itemDesc: "\uC5F0\uC0AC\uC18D\uB3C4 {0}% \uC99D\uAC00"
+  itemIcon: {fileID: -201829820, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
+  baseDamage: 0
+  baseCount: 0
   damages:
+  - 0.1
+  - 0.2
+  - 0.35
   - 0.5
-  - 1
-  - 1.5
-  - 2
-  - 3
-  counts: 0100000001000000010000000100000002000000
-  projectile: {fileID: 1032938302467546570, guid: 5fc61abaec5e7884cb1a4acfacae81f3, type: 3}
+  - 0.75
+  counts: 0000000000000000000000000000000000000000
+  projectile: {fileID: 0}
+  hand: {fileID: 0}

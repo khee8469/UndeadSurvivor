@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         //죽어잇거나    애니메이션 Hit가 실행중이면 움직임 중지
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
@@ -45,6 +48,9 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         if (!isLive)
             return;
 

@@ -16,6 +16,9 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         //둘중 최소값 출력 spawnData.Length -1 보다 레벨은 높아지지 않는다.
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f),spawnData.Length -1);
 

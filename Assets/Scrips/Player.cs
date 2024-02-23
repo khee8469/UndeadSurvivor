@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditor;
 using UnityEditor.Tilemaps;
 using UnityEngine;
@@ -11,8 +12,9 @@ public class Player : MonoBehaviour
     SpriteRenderer spriter;
     Animator animator;
     public Scanner scanner;
+    public Hand[] hands;
 
-    [SerializeField] float speed;
+    public float speed;
     public Vector2 inputVec;
 
 
@@ -22,6 +24,7 @@ public class Player : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         scanner = GetComponent<Scanner>();
+        hands = GetComponentsInChildren<Hand>(true);
     }
 
 
@@ -41,11 +44,15 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         Move();
     }
 
     private void LateUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         //애니메이터 파라미터 Speed의 float값 입력
         animator.SetFloat("Speed", inputVec.magnitude);
 
